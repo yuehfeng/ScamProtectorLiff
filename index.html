@@ -2,7 +2,10 @@
 <html>
 
 <head>
-    <title>My LIFF App</title>
+    <meta charset="UTF-8">
+    <title>ScamProtector | 詐騙護手資訊</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://static.line-scdn.net/liff/edge/2.1/liff.js"></script>
 </head>
 
@@ -28,13 +31,17 @@
                 const parameterValue = getQueryStringParameter(paramKey);
                 if (parameterValue) {
                     console.log("Value of 'key' parameter:", parameterValue);
-
-                    // 替換為您的 API URL
-                    const apiUrl = `https://3416-1-168-83-117.ngrok-free.app/api/v1/web/key?key=${parameterValue}`; 
-                    fetch(apiUrl)
-                        .then(response => response.json())
-                        .then(data => console.log("API response:", data))
-                        .catch(error => console.error("API error:", error));
+                    const apiUrl = `https://3416-1-168-83-117.ngrok-free.app/api/v1/web/key?key=${parameterValue}`;
+                    $.ajax({
+                        url: apiUrl,
+                        dataType: "jsonp",
+                        success: function () {
+                            console.log("JSONP Request Successful");
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("JSONP Request Error:", error);
+                        },
+                    });
                 } else {
                     console.log("'key' parameter not found in URL.");
                 }
