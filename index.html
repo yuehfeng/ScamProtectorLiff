@@ -25,36 +25,39 @@
             try {
                 await liff.init({ liffId: "2000446415-7b8vWrG4" }); // 替換為您的 LIFF ID
                 displayMessage("LIFF initialized");
-
-                // 獲取並印出參數到控制台
-                const paramKey = "key"; // Query String 鍵值名稱
-                const parameterValue = getQueryStringParameter(paramKey);
-                if (parameterValue) {
-                    console.log("Value of 'key' parameter:", parameterValue);
-                    const apiUrl = `https://3416-1-168-83-117.ngrok-free.app/api/v1/web/key?key=${parameterValue}&callback=handleResponse`;
-
-                    // 定義處理回應的 callback 函式
-                    function handleResponse(data) {
-                        console.log("JSONP Response:", data);
-
-                        // 在這裡處理回應的資料
-                    }
-                    
-                    $.ajax({
-                        url: apiUrl,
-                        dataType: "jsonp",
-                        success: function () {
-                            console.log("JSONP Request Successful");
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("JSONP Request Error:", error);
-                        },
-                    });
-                } else {
-                    console.log("'key' parameter not found in URL.");
-                }
             } catch (error) {
                 displayMessage("LIFF initialization failed: " + error);
+            }
+        }
+
+        function initialData() {
+            // 獲取並印出參數到控制台
+            const paramKey = "key"; // Query String 鍵值名稱
+            const parameterValue = getQueryStringParameter(paramKey);
+            if (parameterValue) {
+                console.log("Value of 'key' parameter:", parameterValue);
+                const apiUrl = `https://3416-1-168-83-117.ngrok-free.app/api/v1/web/key?key=${parameterValue}&callback=handleResponse`;
+
+                // 定義處理回應的 callback 函式
+                function handleResponse(data) {
+                    console.log("JSONP Response:", data);
+
+                    // 在這裡處理回應的資料
+                }
+
+                $.ajax({
+                    url: apiUrl,
+                    type: 'GET',
+                    dataType: "jsonp",
+                    success: function () {
+                        console.log("JSONP Request Successful");
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("JSONP Request Error:", error);
+                    },
+                });
+            } else {
+                console.log("'key' parameter not found in URL.");
             }
         }
 
@@ -62,7 +65,10 @@
             document.getElementById("message").textContent = message;
         }
 
-        document.addEventListener("DOMContentLoaded", initializeLiff);
+        document.addEventListener("DOMContentLoaded", {
+            initializeLiff,
+            initialData
+        });
     </script>
 </body>
 
