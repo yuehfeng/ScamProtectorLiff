@@ -58,11 +58,15 @@
         }
 
         function displayMessage(title, message, img) {
-            document.getElementById("title").textContent = title;
-            document.getElementById("message").textContent = message;
-            if (img != "") {
-                document.getElementById("img").innerHTML = `<img src="${img}">`;
-            }
+            var intervalID = setInterval(() => {
+                document.getElementById("title").textContent = title;
+                document.getElementById("message").textContent = message;
+                if (img != "") 
+                    document.getElementById("img").innerHTML = `<img src="${img}">`;
+                if ( document.getElementById("title").textContent == title)
+                    clearInterval(intervalID);
+            }, 200);
+
         }
 
         document.addEventListener("DOMContentLoaded", initializeLiff);
