@@ -31,7 +31,15 @@
                 const parameterValue = getQueryStringParameter(paramKey);
                 if (parameterValue) {
                     console.log("Value of 'key' parameter:", parameterValue);
-                    const apiUrl = `https://3416-1-168-83-117.ngrok-free.app/api/v1/web/key?key=${parameterValue}`;
+                    const apiUrl = `https://3416-1-168-83-117.ngrok-free.app/api/v1/web/key?key=${parameterValue}&callback=handleResponse`;
+
+                    // 定義處理回應的 callback 函式
+                    function handleResponse(data) {
+                        console.log("JSONP Response:", data);
+
+                        // 在這裡處理回應的資料
+                    }
+                    
                     $.ajax({
                         url: apiUrl,
                         dataType: "jsonp",
