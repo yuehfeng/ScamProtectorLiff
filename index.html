@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My LIFF App</title>
+    <script src="https://static.line-scdn.net/liff/edge/2.1/liff.js"></script>
+</head>
+
+<body>
+    <h1>Welcome to My LIFF App!</h1>
+    <p id="message">Loading...</p>
+
+    <script>
+        async function initializeLiff() {
+            try {
+                await liff.init({ liffId: "2000446415-7b8vWrG4" }); // 替換為您的 LIFF ID
+                displayMessage("LIFF initialized");
+            } catch (error) {
+                displayMessage("LIFF initialization failed: " + error);
+            }
+        }
+
+        function displayMessage(message) {
+            document.getElementById("message").textContent = message;
+        }
+
+        document.addEventListener("DOMContentLoaded", initializeLiff);
+    </script>
+</body>
+
+</html>
