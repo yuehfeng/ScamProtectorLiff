@@ -11,10 +11,33 @@
     <p id="message">Loading...</p>
 
     <script>
+        // 獲取 URL 的 Query String 參數
+        function getQueryStringParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // 初始化 LIFF
         async function initializeLiff() {
             try {
                 await liff.init({ liffId: "2000446415-7b8vWrG4" }); // 替換為您的 LIFF ID
                 displayMessage("LIFF initialized");
+
+                // 獲取並印出參數到控制台
+                const paramKey = "key"; // Query String 鍵值名稱
+                const parameterValue = getQueryStringParameter(paramKey);
+                if (parameterValue) {
+                    console.log("Value of 'key' parameter:", parameterValue);
+
+                    // 替換為您的 API URL
+                    const apiUrl = `https://3416-1-168-83-117.ngrok-free.app/api/v1/web/key?key=${parameterValue}`; 
+                    fetch(apiUrl)
+                        .then(response => response.json())
+                        .then(data => console.log("API response:", data))
+                        .catch(error => console.error("API error:", error));
+                } else {
+                    console.log("'key' parameter not found in URL.");
+                }
             } catch (error) {
                 displayMessage("LIFF initialization failed: " + error);
             }
